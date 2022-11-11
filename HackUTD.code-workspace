@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		},
+		{
+			"name": "FrontEnd",
+			"path": "hackutd_fe"
+		},
+		{
+			"name": "BackEnd",
+			"path": "hackutd_be"
+		}
+	],
+	"settings": {
+		"python.defaultInterpreterPath": ".venv/bin/python3"
+	}
+}
