@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +49,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // Http requests that can be used in project
+
+  // Future<http.Response> fetchAlbum() {
+  //   return http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+  // }
+
+  //   Future<http.Response> updateAlbum(String title) {
+  //   return http.put(
+  //     Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'title': title,
+  //     }),
+  //   );
+  // }
+
+  //   Future<http.Response> createAlbum(String title) {
+  //   return http.post(
+  //     Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(<String, String>{
+  //       'title': title,
+  //     }),
+  //   );
+  // }
+
   int _counter = 0;
 
   void _incrementCounter() {
