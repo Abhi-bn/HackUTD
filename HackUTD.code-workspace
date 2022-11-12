@@ -12,7 +12,29 @@
 			"path": "frontend"
 		}
 	],
-	"settings": {},
+	"settings": {
+		"terminal.integrated.profiles.windows": {
+			"PowerShell": {
+				"source": "PowerShell",
+				"icon": "terminal-powershell",
+				"args": [
+					"-ExecutionPolicy",
+					"Bypass"
+				]
+			},
+			"Command Prompt": {
+				"path": [
+					"${env:windir}\\Sysnative\\cmd.exe",
+					"${env:windir}\\System32\\cmd.exe"
+				],
+				"args": [],
+				"icon": "terminal-cmd"
+			},
+			"Git Bash": {
+				"source": "Git Bash"
+			}
+		}
+	},
 	"launch": {
 		"version": "0.2.0",
 		"configurations": [
@@ -28,7 +50,7 @@
 				]
 			},
 			{
-				"name": "Backend",
+				"name": "Django: RunServer",
 				"type": "python",
 				"request": "launch",
 				"cwd": "${workspaceFolder:BackEnd}",
@@ -36,9 +58,53 @@
 				"args": [
 					"runserver",
 				],
+				"purpose": [
+					"debug-in-terminal"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"pythonArgs": [],
 				"django": true
 			}
 		],
 		"compounds": []
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Django: MakeMigrations",
+				"command": "python",
+				"type": "shell",
+				"args": [
+					"${workspaceFolder:BackEnd}/manage.py",
+					"makemigrations"
+				],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			},
+			{
+				"label": "Django: Migrate",
+				"command": "python",
+				"type": "shell",
+				"args": [
+					"${workspaceFolder:BackEnd}/manage.py",
+					"migrate"
+				],
+				"problemMatcher": [
+					"$tsc"
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			}
+		]
 	}
 }
