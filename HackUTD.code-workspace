@@ -4,15 +4,43 @@
 			"path": ".",
 		},
 		{
-			"name": "FrontEnd",
-			"path": "hackutd_fe"
+			"name": "BackEnd",
+			"path": "backend"
 		},
 		{
-			"name": "BackEnd",
-			"path": "hackutd_be"
+			"name": "FrontEnd",
+			"path": "frontend"
 		}
 	],
 	"settings": {
-		"python.defaultInterpreterPath": ".venv/bin/python3"
+		"python.defaultInterpreterPath": ".venv/bin/python3",
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "FrontEnd",
+				"request": "launch",
+				"type": "dart",
+				"cwd": "${workspaceFolder:FrontEnd}",
+				"program": "${workspaceFolder:FrontEnd}/lib/main.dart",
+				"args": [
+					"-d",
+					"chrome"
+				]
+			},
+			{
+				"name": "Backend",
+				"type": "python",
+				"request": "launch",
+				"cwd": "${workspaceFolder:BackEnd}",
+				"program": "${workspaceFolder:BackEnd}/manage.py",
+				"args": [
+					"runserver",
+				],
+				"django": true
+			}
+		],
+		"compounds": []
 	}
 }
