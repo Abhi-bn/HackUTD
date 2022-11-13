@@ -9,10 +9,18 @@ class Profession(models.Model):
         unique_together = ('id', 'profession_name',)
 
 
-class UserInfo(models.Model):
-    userid = models.OneToOneField(User, on_delete=models.CASCADE)
-    professionid = models.ForeignKey(Profession, on_delete=models.CASCADE)
-    wantstohelp = models.BooleanField(null=False, blank=False, unique=True)
+class UserData(models.Model):
+    userName = models.CharField(max_length=125, null=False)
+    # professionid = models.ForeignKey(Profession, on_delete=models.CASCADE)
+    profession = models.IntegerField(null=True)
+    wantstohelp = models.BooleanField(null=False, blank=False)
+    password = models.CharField(max_length=15, null=False)
+    is_active = models.BooleanField(null=False, default=True)
+    address = models.CharField(
+        max_length=30, null=False, default=True)
+    email = models.CharField(max_length=25, null=False,
+                             default="hari.deepak1@gmail.com")
+    tokenid = models.CharField(max_length=25, null=True)
 
 
 Emergency_TYPE = (
@@ -25,8 +33,7 @@ Emergency_TYPE = (
 
 
 class Emergency(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(null=False, blank=False, max_length=80)
     datetime = models.DateTimeField(null=False, blank=False, auto_now=True)
     location = models.CharField(max_length=30)
-    emergency_type = models.CharField(max_length=1, choices=Emergency_TYPE)
+    emergency_type = models.IntegerField(choices=Emergency_TYPE)

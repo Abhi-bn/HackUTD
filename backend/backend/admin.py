@@ -1,5 +1,4 @@
 import django.contrib.admin as admin
-from backend.models import Profession, UserInfo
+from backend.models import Profession
 
 admin.site.register(Profession)
-admin.site.register(UserInfo)

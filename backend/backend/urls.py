@@ -34,6 +34,12 @@ urlpatterns = [
             'get': 'list',
         }
     )),
+    re_path(r'^user/login$', UserViewSet.as_view(
+            {
+                'post': 'login',
+            }
+            )),
+
     path('admin/', admin.site.urls),
     path('home', hello_world),
     path('login', loginValidator),
