@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from backend.views import hello_world
+from backend.views import hello_world, loginValidator
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home', hello_world)
+    path('home', hello_world),
+    path('login', loginValidator)
 ]
