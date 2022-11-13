@@ -46,7 +46,9 @@
 				"program": "${workspaceFolder:FrontEnd}/lib/main.dart",
 				"args": [
 					"-d",
-					"chrome"
+					"chrome",
+					"--web-port",
+					"8686"
 				]
 			},
 			{
