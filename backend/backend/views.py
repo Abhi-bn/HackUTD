@@ -16,7 +16,6 @@ def hello_world(request):
 
 @api_view(['POST'])
 def loginValidator(request):
-    loginValidatorResult = {}
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     email = body['email']
@@ -27,23 +26,16 @@ def loginValidator(request):
 
     if check_if_user_exists:
         user = User.objects.filter(email=email)
-        # serializer = UserSerializerFull(user)
         userName = (user[0])
         user = authenticate(
             request, username=userName, password=password)
 
         if user is not None:
-
-            return JsonResponse({'isValid': True, 'errorResponse': "None"})
-            # # loginValidatorResult["userName"] = userName
-            # loginValidatorResult["errorStatus"] = None
-            # loginValidatorResult["isValidUser"] = True
-
-            return HttpResponse("Sucessful")
-            # return JsonResponse(json.dumps(loginValidatorResult))
+            user = User.objects.filter(email=email).values(
+                'id', 'is_active', 'username')
+            return JsonResponse({'data': UserSerializer(user, many=True).data, 'isValid': True, 'errorResponse': "None"})
         else:
             return JsonResponse({'isValid': False, 'errorResponse': "User Exists, password mismatch"})
-
     else:
         return JsonResponse({'isValid': False, 'errorResponse': "User Does Not Exist"})
 
