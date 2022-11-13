@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .serializer import UserSerializer, UserSerializerFull
-from django.contrib.auth.models import User
+from .serializer import UserSerializer, UserSerializerFull, EmergencySerializerFull
+from backend.models import Emergency
 from rest_framework.viewsets import ModelViewSet
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -63,3 +63,24 @@ class UserViewSet(ModelViewSet):
     def perform_destroy(self, instance):
         instance.is_active = False
         instance.save()
+
+
+class EmergencyViewSet(ModelViewSet):
+    serializer_class = EmergencySerializerFull
+
+    def retrieve(self, request, *args, **kwargs):
+        return JsonResponse(self.get_serializer(self.get_object()).data)
+
+    def get_object(self):
+        return get_object_or_404(Emergency, id=self.request.query_params.get("id"))
+
+    def get_queryset(self):
+        return Emergency.objects.all()
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        return JsonResponse({'data': self.get_serializer(queryset, many=True).data})

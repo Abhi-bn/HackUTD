@@ -18,7 +18,7 @@ class UserInfo(models.Model):
 Emergency_TYPE = (
     (0, 'Normal'),
     (1, 'Animal_Spotting'),
-    (2, 'Health_EMERGENCY'),
+    (2, 'Health_Emergency'),
     (3, 'Theft'),
     (4, 'Other'),
 )
@@ -29,4 +29,4 @@ class Emergency(models.Model):
     description = models.CharField(null=False, blank=False, max_length=80)
     datetime = models.DateTimeField(null=False, blank=False, auto_now=True)
     location = models.CharField(max_length=30)
-    emergency_type = models.CharField(max_length=1, choices=Emergency_TYPE)
+    emergency_type = models.IntegerField(choices=Emergency_TYPE)
