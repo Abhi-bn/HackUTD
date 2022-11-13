@@ -1,6 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/firebase/firebase.dart';
+import 'firebase_options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  final messaging = FirebaseMessaging.instance;
+
+  final settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  messaging.getToken().then((token) {
+    print(token);
+  });
+  if (true) {
+    print('Permission granted: ${settings.authorizationStatus}');
+  }
+
   runApp(const MyApp());
 }
 
@@ -49,7 +76,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  FireBaseMsg _msg = FireBaseMsg();
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -59,6 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  @override
+  void initState() {
+    _msg.getPermission();
+    _msg.messageListener(context);
+    super.initState();
   }
 
   @override
