@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/utilities/global.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DynamicDialog extends StatefulWidget {
   String? title;
@@ -34,26 +35,32 @@ class _DynamicDialogState extends State<DynamicDialog> {
 }
 
 class FireBaseMsg {
+  late Future<String?> token;
   void initilise(context) async {
     await getPermission();
-    // messageListener(context);
+    messageListener(context);
+    FirebaseMessaging.instance.getToken().then((value) {
+      Future.delayed(Duration.zero, () async {
+        await Global.updatePushT(value);
+      });
+    });
   }
 
   Future<void> getPermission() async {
-    // await FirebaseMessaging.instance.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
+    var settings = await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
-    // print('User granted permission: ${settings.authorizationStatus}');
+    print('User granted permission: ${settings.authorizationStatus}');
   }
 
-  void messageListener(BuildContext context) {
+  void messageListener(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('Got a message whilst in the foreground!');
     });

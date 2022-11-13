@@ -1,11 +1,12 @@
 import 'package:frontend/utilities/emergencies.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Global {
   static String djangoUrl = "http://127.0.0.1:8000";
   static String homePage = "$djangoUrl/home";
-  static String loginPage = "$djangoUrl/login";
+  static String loginPage = "$djangoUrl/user/login";
   static String updatePushToken = "$djangoUrl/user?";
   static String LoadEmergencies = "$djangoUrl/emergency/all?";
   static var headersList = {
@@ -25,12 +26,17 @@ class Global {
     return data;
   }
 
-  static Future<void> updatePushT(int id, String? token) async {
-    var url = Uri.parse(Global.updatePushToken + 'id=' + id.toString());
-    var req = await http
-        .patch(url, headers: headersList, body: {'id': id, 'tokenid': token});
+  static Future<void> updatePushT(String? token) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    if (req.statusCode != 200) return;
-    print('All Good');
+    var url =
+        Uri.parse(Global.updatePushToken + 'id=' + sp.getInt("id").toString());
+
+    Future.delayed(Duration.zero, () async {
+      var req = await http.patch(url,
+          body: {'id': sp.getInt("id").toString(), 'tokenid': token});
+      if (req.statusCode != 200) return;
+      print('All Good');
+    });
   }
 }

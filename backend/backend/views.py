@@ -57,6 +57,12 @@ class UserViewSet(ModelViewSet):
         instance.is_active = False
         instance.save()
 
+    def partial_update(self, request, *args, **kwargs):
+        obj = self.get_object()
+        obj.tokenid = request.POST['tokenid']
+        obj.save()
+        return JsonResponse({'done': ""})
+
     def login(self, request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)

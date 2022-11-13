@@ -20,7 +20,7 @@ class UserData(models.Model):
         max_length=30, null=False, default=True)
     email = models.CharField(max_length=25, null=False,
                              default="hari.deepak1@gmail.com")
-    tokenid = models.CharField(max_length=25, null=True)
+    tokenid = models.CharField(max_length=200, null=True)
 
 
 Emergency_TYPE = (
