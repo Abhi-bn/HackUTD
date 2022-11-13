@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/firebase/push_notification.dart';
+import 'package:frontend/firebase_options.dart';
 
 class DynamicDialog extends StatefulWidget {
   String? title;
@@ -31,11 +32,15 @@ class _DynamicDialogState extends State<DynamicDialog> {
 }
 
 class FireBaseMsg {
-  Future<void> getPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    // await FirebaseMessaging.instance.subscribeToTopic('all');
+  void initilise() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
-    NotificationSettings settings = await messaging.requestPermission(
+  Future<void> getPermission() async {
+    NotificationSettings settings =
+        await FirebaseMessaging.instance.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -49,6 +54,9 @@ class FireBaseMsg {
   }
 
   void messageListener(BuildContext context) {
+    FirebaseMessaging.instance.getToken().then((token) {
+      print(token);
+    });
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('Got a message whilst in the foreground!');
     });

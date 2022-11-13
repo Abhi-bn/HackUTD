@@ -6,28 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  final messaging = FirebaseMessaging.instance;
-
-  final settings = await messaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
-  messaging.getToken().then((token) {
-    print(token);
-  });
-  if (true) {
-    print('Permission granted: ${settings.authorizationStatus}');
-  }
-
   runApp(const MyApp());
 }
 
@@ -79,20 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
   FireBaseMsg _msg = FireBaseMsg();
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
 
   @override
-  void initState() {
+  void initState() async {
+    super.initState();
+    _msg.initilise();
     _msg.getPermission();
     _msg.messageListener(context);
-    super.initState();
   }
 
   @override
