@@ -8,7 +8,7 @@ class FormApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Create Emergency',
-      theme: ThemeData(brightness: Brightness.dark),
+      theme: ThemeData(brightness: Brightness.light),
       home: const EmergencyPage(title: 'Create emergency'),
     );
   }
@@ -29,10 +29,14 @@ class _EmergencyPageState extends State<EmergencyPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.black54,
       ),
       body: Container(
-          padding: const EdgeInsets.fromLTRB(100, 100, 100, 100),
-          child: EmergencyForm()),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: EmergencyForm(),
+          constraints: BoxConstraints(
+            minWidth: 100,
+          )),
     );
   }
 }
@@ -137,7 +141,7 @@ class _EmergencyFormState extends State<EmergencyForm> {
       value: _sameAsAddress,
       onChanged: (value) {
         setState(() {
-          _sameAsAddress = !_sameAsAddress;
+          _sameAsAddress = value.toString().toLowerCase() == 'true';
         });
       },
       title: const Text(
@@ -176,9 +180,12 @@ class _EmergencyFormState extends State<EmergencyForm> {
     formWidget.add(ElevatedButton(
         child: const Text('Create'),
         style: TextButton.styleFrom(
-          primary: Colors.white,
-          backgroundColor: Colors.pinkAccent, // Background Color
-        ),
+            primary: Colors.white,
+            backgroundColor: Colors.pinkAccent,
+            fixedSize: const Size(5, 30),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50)) // Background Color
+            ),
         onPressed: onPressedSubmit));
 
     return formWidget;
