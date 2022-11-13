@@ -15,10 +15,40 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from backend.views import hello_world, loginValidator
+from backend.views import loginValidator, hello_world
+from django.urls import re_path
+from backend.views import UserViewSet
 
 urlpatterns = [
+    re_path(r'^user$', UserViewSet.as_view(
+        {
+            'get': 'retrieve',
+            'post': 'create',
+            'put': 'update',
+            'patch': 'partial_update',
+            'delete': 'destroy'
+        }
+    )),
+    re_path(r'^user/all$', UserViewSet.as_view(
+        {
+            'get': 'list',
+        }
+    )),
     path('admin/', admin.site.urls),
     path('home', hello_world),
-    path('login', loginValidator)
+    path('login', loginValidator),
+    re_path(r'^abc$', UserViewSet.as_view(
+        {
+            'get': 'retrieve',
+            'post': 'create',
+            'put': 'update',
+            'patch': 'partial_update',
+            'delete': 'destroy'
+        }
+    )),
+    re_path(r'^user/all$', UserViewSet.as_view(
+        {
+            'get': 'list',
+        }
+    )),
 ]
