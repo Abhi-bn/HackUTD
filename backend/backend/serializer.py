@@ -8,7 +8,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserData
         fields = ("userName", "wantstohelp", "password",
-                  "is_active", "profession", "address", "email", "tokenid")
+                  "is_active", "profession", "address", "email", "tokenid","id")
 
 
 class EmergencySerializerFull(serializers.ModelSerializer):

@@ -57,30 +57,6 @@ class UserViewSet(ModelViewSet):
         instance.is_active = False
         instance.save()
 
-
-class EmergencyViewSet(ModelViewSet):
-    serializer_class = EmergencySerializerFull
-
-    def retrieve(self, request, *args, **kwargs):
-        return JsonResponse(self.get_serializer(self.get_object()).data)
-
-    def get_object(self):
-        return get_object_or_404(Emergency, id=self.request.query_params.get("id"))
-
-    def get_queryset(self):
-        return Emergency.objects.all()
-
-    def perform_destroy(self, instance):
-        instance.is_active = False
-        instance.save()
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        return JsonResponse({'data': self.get_serializer(queryset, many=True).data})
-
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
     def login(self, request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
@@ -104,3 +80,27 @@ class EmergencyViewSet(ModelViewSet):
 
         else:
             return JsonResponse({'isValid': False, 'errorResponse': "User Does Not Exist"})
+
+
+class EmergencyViewSet(ModelViewSet):
+    serializer_class = EmergencySerializerFull
+
+    def retrieve(self, request, *args, **kwargs):
+        return JsonResponse(self.get_serializer(self.get_object()).data)
+
+    def get_object(self):
+        return get_object_or_404(Emergency, id=self.request.query_params.get("id"))
+
+    def get_queryset(self):
+        return Emergency.objects.all()
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        return JsonResponse({'data': self.get_serializer(queryset, many=True).data})
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)

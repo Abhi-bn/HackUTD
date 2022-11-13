@@ -5,7 +5,7 @@ import 'dart:convert';
 class Global {
   static String djangoUrl = "http://127.0.0.1:8000";
   static String homePage = "$djangoUrl/home";
-  static String loginPage = "$djangoUrl/login";
+  static String loginPage = "$djangoUrl/user/login";
   static String LoadEmergencies = "$djangoUrl/emergency/all?";
   static var headersList = {
     'Accept': '*/*',

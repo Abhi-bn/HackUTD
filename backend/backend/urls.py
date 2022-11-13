@@ -60,5 +60,5 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('home', hello_world),
-    path('login', loginValidator),
+    # path('login', loginValidator),
 ]
