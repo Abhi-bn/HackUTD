@@ -37,18 +37,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', hello_world),
     path('login', loginValidator),
-    re_path(r'^abc$', UserViewSet.as_view(
-        {
-            'get': 'retrieve',
-            'post': 'create',
-            'put': 'update',
-            'patch': 'partial_update',
-            'delete': 'destroy'
-        }
-    )),
-    re_path(r'^user/all$', UserViewSet.as_view(
-        {
-            'get': 'list',
-        }
-    )),
 ]

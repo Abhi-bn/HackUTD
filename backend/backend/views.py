@@ -31,7 +31,9 @@ def loginValidator(request):
             request, username=userName, password=password)
 
         if user is not None:
-            return JsonResponse({'isValid': True, 'errorResponse': "None"})
+            user = User.objects.filter(email=email).values(
+                'id', 'is_active', 'username')
+            return JsonResponse({'data': UserSerializer(user, many=True).data, 'isValid': True, 'errorResponse': "None"})
         else:
             return JsonResponse({'isValid': False, 'errorResponse': "User Exists, password mismatch"})
     else:
