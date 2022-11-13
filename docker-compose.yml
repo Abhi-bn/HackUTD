@@ -1,0 +1,59 @@
+version: '3.3'
+
+services:
+  hackutd_db:
+    container_name: hackutd_db
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: hackutd_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - hackerutd_db:/var/lib/postgresql/data
+    networks:
+      - hackerutd_net
+
+  backend:
+    container_name: backend
+    build: backend
+    depends_on:
+      - hackutd_db
+    environment:
+      HACKUTD_POSTGRES_HOST: 'hackutd_db'
+    restart: always
+    command: bash -c "python manage.py migrate | python manage.py runserver 0.0.0.0:8080"
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    volumes:
+      - hackerutd_data:/home/django/data
+    networks:
+      - hackerutd_net
+
+  frontend:
+    container_name: frontend
+    build: frontend
+    depends_on:
+      - backend
+    environment:
+      COURSE_UPDATES_POSTGRES_HOST: 'hackutd_db'
+    restart: always
+    command: bash -c "flutter pub global run serve  -H 0.0.0.0 -p 8686"
+    # command: bash -c "flutter pub get | flutter pub global webdev server 0.0.0.0:8686"
+
+    ports:
+      - 8686:8686
+    expose:
+      - 8686
+    volumes:
+      - hackerutd_data:/home/django/data
+    networks:
+      - hackerutd_net
+
+volumes:
+  hackerutd_data:
+  hackerutd_db:
+networks:
+  hackerutd_net:

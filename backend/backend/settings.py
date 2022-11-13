@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--^+@7$^j^zi-s-r)y(s-&zci0j+_g#o2vq+)ntv@64d^&^%l@y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'NAME': 'hackutd_db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'hackutd_db',
         'PORT': '5432'
     }
 }

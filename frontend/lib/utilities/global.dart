@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Global {
-  static String djangoUrl = "http://127.0.0.1:8000";
+  static String djangoUrl = "http://127.0.0.1:8080";
   static String homePage = "$djangoUrl/home";
   static String loginPage = "$djangoUrl/user/login";
   static String updatePushToken = "$djangoUrl/user?";
