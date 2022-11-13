@@ -31,7 +31,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
         title: Text(widget.title),
       ),
       body: Container(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(100, 100, 100, 100),
           child: EmergencyForm()),
     );
   }

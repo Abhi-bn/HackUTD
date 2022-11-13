@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:frontend/emergency.dart';
 import 'package:frontend/login.dart';
 
 import 'home.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Helpy',
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => HomeScreen(),
+        '/emergency': (BuildContext context) => FormApp(),
       },
       theme: ThemeData(
         primaryColor: Colors.white,
@@ -42,8 +44,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-// login_screen.dart
