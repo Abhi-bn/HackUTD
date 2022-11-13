@@ -1,14 +1,22 @@
 // main.dart
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unused_import
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:frontend/emergency.dart';
+import 'package:frontend/firebase_options.dart';
 import 'package:frontend/login.dart';
 
 import 'home.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

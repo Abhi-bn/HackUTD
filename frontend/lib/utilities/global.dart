@@ -6,6 +6,7 @@ class Global {
   static String djangoUrl = "http://127.0.0.1:8000";
   static String homePage = "$djangoUrl/home";
   static String loginPage = "$djangoUrl/login";
+  static String updatePushToken = "$djangoUrl/user?";
   static String LoadEmergencies = "$djangoUrl/emergency/all?";
   static var headersList = {
     'Accept': '*/*',
@@ -22,5 +23,14 @@ class Global {
       data.add(Emergencies.fromJson(raw[i]));
     }
     return data;
+  }
+
+  static Future<void> updatePushT(int id, String? token) async {
+    var url = Uri.parse(Global.updatePushToken + 'id=' + id.toString());
+    var req = await http
+        .patch(url, headers: headersList, body: {'id': id, 'tokenid': token});
+
+    if (req.statusCode != 200) return;
+    print('All Good');
   }
 }
