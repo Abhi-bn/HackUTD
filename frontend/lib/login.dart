@@ -5,10 +5,12 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:frontend/utilities/global.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
     Future<String?>? _authUser(LoginData data) async {
       debugPrint('Name: ${data.name}, Password: ${data.password}');
 
@@ -29,12 +31,16 @@ class Login extends StatelessWidget {
 
       var res = await req.send();
       final resBody = await res.stream.bytesToString();
+      var jsonData = jsonDecode(resBody);
 
       debugPrint(resBody);
-      if (res.statusCode == 200) {
-        Navigator.of(context).pushNamed('/home');
+      if (jsonData["errorResponse"] == null) {
+        prefs.then((pref) {
+          pref.setInt("id", jsonData["id"]);
+        });
+        Navigator.of(context).pushReplacementNamed('/home');
       } else {
-        debugPrint(res.reasonPhrase);
+        Navigator.of(context).pushReplacementNamed('/login');
       }
 
       // var response = http.post(
