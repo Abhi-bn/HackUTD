@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import UserData
+from .models import Emergency
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -8,3 +9,9 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = UserData
         fields = ("userName", "wantstohelp", "password",
                   "is_active", "profession", "address", "email", "tokenid")
+
+
+class EmergencySerializerFull(serializers.ModelSerializer):
+    class Meta:
+        model = Emergency
+        fields = '__all__'

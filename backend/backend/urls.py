@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from backend.views import loginValidator, hello_world
 from django.urls import re_path
-from backend.views import UserViewSet
+from backend.views import UserViewSet, EmergencyViewSet
 
 urlpatterns = [
     re_path(r'^user$', UserViewSet.as_view(
@@ -26,14 +26,32 @@ urlpatterns = [
             'post': 'create',
             'put': 'update',
             'patch': 'partial_update',
-            'delete': 'destroy'
+            'delete': 'destroy',
         }
     )),
+
     re_path(r'^user/all$', UserViewSet.as_view(
         {
             'get': 'list',
         }
     )),
+
+    re_path(r'^emergency$', EmergencyViewSet.as_view(
+        {
+            'get': 'retrieve',
+            'post': 'create',
+            'put': 'update',
+            'patch': 'partial_update',
+            'delete': 'destroy'
+        }
+    )),
+
+    re_path(r'^emergency/all$', EmergencyViewSet.as_view(
+        {
+            'get': 'list',
+        }
+    )),
+
     re_path(r'^user/login$', UserViewSet.as_view(
             {
                 'post': 'login',

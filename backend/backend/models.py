@@ -26,7 +26,7 @@ class UserData(models.Model):
 Emergency_TYPE = (
     (0, 'Normal'),
     (1, 'Animal_Spotting'),
-    (2, 'Health_EMERGENCY'),
+    (2, 'Health_Emergency'),
     (3, 'Theft'),
     (4, 'Other'),
 )
